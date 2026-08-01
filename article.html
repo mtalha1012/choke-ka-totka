@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Loading your totka...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://www.youtube.com">
+
+<style>
+  html, body { margin: 0; height: 100%; background: #0b0f14; overflow: hidden; }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif; color: #9aa7b4; font-size: 14px;
+  }
+  .dots::after {
+    content: ''; display: inline-block; width: 1.2em; text-align: left;
+    animation: dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; }
+    75% { content: '...'; } 100% { content: ''; }
+  }
+  #videoWrap { display: none; position: fixed; inset: 0; background: black; z-index: 999; }
+  #videoWrap iframe, #player { width: 100%; height: 100%; }
+  #tapOverlay { display: none; position: fixed; inset: 0; z-index: 1000; background: transparent; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div id="loading">Compiling your totka<span class="dots"></span></div>
+
+<div id="videoWrap"><div id="player"></div></div>
+<div id="tapOverlay"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  var ytPlayer;
+
+  function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('player', {
+      videoId: 'Aq5WXmQQooo',
+      width: '100%',
+      height: '100%',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        rel: 0,
+        playsinline: 1,
+        modestbranding: 1
+      },
+      events: { 'onReady': onPlayerReady }
+    });
+  }
+
+  function onPlayerReady(e) {
+    reveal();
+    try { e.target.unMute(); } catch (err) {}
+    e.target.playVideo();
+  }
+
+  function reveal() {
+    document.getElementById('loading').style.display = 'none';
+    var wrap = document.getElementById('videoWrap');
+    wrap.style.display = 'block';
+
+    var fs = wrap.requestFullscreen || wrap.webkitRequestFullscreen || wrap.msRequestFullscreen;
+    if (fs) fs.call(wrap).catch(function () {});
+
+    document.getElementById('tapOverlay').style.display = 'block';
+  }
+
+  document.getElementById('tapOverlay').addEventListener('click', function () {
+    if (ytPlayer) { ytPlayer.unMute(); ytPlayer.playVideo(); }
+    this.style.display = 'none';
+  });
+
+  setTimeout(function () { if (!ytPlayer) reveal(); }, 4000);
+</script>
+
+</body>
+</html>

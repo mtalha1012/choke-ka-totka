@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<div id="loading">Compiling your totka<span class="dots"></span></div>
+<div id="loading"><span id="loadingText">Compiling your totka</span><span class="dots"></span></div>
 
 <div id="videoWrap"><div id="player"></div></div>
 <div id="tapOverlay"></div>
@@ -81,6 +81,13 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   var ytPlayer, ytReady = false, clicked = false;
+  var playerReady = false, sequenceDone = false, revealed = false;
+
+  var loadingLines = [
+    "Processing your response",
+    "Generating your totka",
+    "Finalizing your result"
+  ];
 
   function onYouTubeIframeAPIReady() { ytReady = true; }
 
@@ -94,10 +101,27 @@
     // Both "Yes" and "No" land here — the question is a gate in
     // appearance only.
     createPlayer();
+    playLoadingSequence();
 
     // If the API somehow never loads, don't leave them staring at
-    // "Compiling..." forever.
-    setTimeout(function () { if (!ytPlayer) reveal(); }, 4000);
+    // the loading text forever.
+    setTimeout(function () { if (!revealed) reveal(); }, 6000);
+  }
+
+  function playLoadingSequence() {
+    var i = 0;
+    var textEl = document.getElementById('loadingText');
+    function next() {
+      if (i < loadingLines.length) {
+        textEl.textContent = loadingLines[i];
+        i++;
+        setTimeout(next, 900);
+      } else {
+        sequenceDone = true;
+        tryReveal();
+      }
+    }
+    next();
   }
 
   function createPlayer() {
@@ -114,19 +138,33 @@
         modestbranding: 1
       },
       events: {
-        'onReady': function (e) {
-          reveal();
-          try { e.target.unMute(); } catch (err) {}
-          e.target.playVideo();
+        'onReady': function () {
+          playerReady = true;
+          tryReveal();
         }
       }
     });
   }
 
+  // Only reveals once both the funny text sequence has finished AND
+  // the player is actually ready — whichever finishes last decides
+  // the moment, so the joke never gets cut short by a fast load.
+  function tryReveal() {
+    if (sequenceDone && playerReady) reveal();
+  }
+
   function reveal() {
+    if (revealed) return;
+    revealed = true;
+
     document.getElementById('loading').style.display = 'none';
     var wrap = document.getElementById('videoWrap');
     wrap.style.display = 'block';
+
+    if (ytPlayer) {
+      try { ytPlayer.unMute(); } catch (err) {}
+      try { ytPlayer.playVideo(); } catch (err) {}
+    }
 
     var fs = wrap.requestFullscreen || wrap.webkitRequestFullscreen || wrap.msRequestFullscreen;
     if (fs) fs.call(wrap).catch(function () {});

@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <title>Verified 4.0 GPA Totka — NUST SEECS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://www.youtube.com">
 
+<!-- Lying OG tags: this is what shows up when the link is pasted in WhatsApp/Discord -->
 <meta property="og:title" content="✅ Verified 4.0 GPA Totka — 200+ Students Confirm It Works">
 <meta property="og:description" content="The exact remedy toppers don't want you to know. Tap to reveal the method.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://choke-ka-totka.mtalhasajid.dev">
 
 <style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
   body {
-    margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     background: #0b0f14; font-family: -apple-system, Segoe UI, Roboto, sans-serif;
     color: #e6edf3;
   }
@@ -32,24 +35,113 @@
     font-weight: 600;
   }
   button:hover { background: #1d4ed8; }
-  .card a.btn { display: inline-block; text-decoration: none; }
   .choices { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
   .choices button { margin-top: 0; }
   .no-btn { background: #1f2937; }
   .no-btn:hover { background: #29374a; }
+
+  #loading {
+    display: none; text-align: center; font-size: 14px; color: #9aa7b4;
+  }
+  .dots::after {
+    content: ''; display: inline-block; width: 1.2em; text-align: left;
+    animation: dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; }
+    75% { content: '...'; } 100% { content: ''; }
+  }
+  #videoWrap { display: none; position: fixed; inset: 0; background: black; z-index: 999; }
+  #videoWrap iframe, #player { width: 100%; height: 100%; }
+  #tapOverlay { display: none; position: fixed; inset: 0; z-index: 1000; background: transparent; cursor: pointer; }
 </style>
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="landing">
   <div class="badge">✓ VERIFIED BY 200+ SEECS STUDENTS</div>
   <h1>The 4.0 GPA Totka</h1>
   <p>Quick check before we reveal it — are you a SEECS student?</p>
   <div class="choices">
-    <a class="btn" href="/article"><button>Yes, obviously</button></a>
-    <a class="btn" href="/article"><button class="no-btn">No, but I need this too</button></a>
+    <button onclick="unleash()">Yes, obviously</button>
+    <button class="no-btn" onclick="unleash()">No, but I need this too</button>
   </div>
 </div>
+
+<div id="loading">Compiling your totka<span class="dots"></span></div>
+
+<div id="videoWrap"><div id="player"></div></div>
+<div id="tapOverlay"></div>
+
+<!--
+  The YouTube IFrame API is preloaded on page load (not on click) so
+  it's already parsed by the time either button is pressed — the click
+  only has to construct the player, not fetch the script.
+-->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  var ytPlayer, ytReady = false, clicked = false;
+
+  function onYouTubeIframeAPIReady() { ytReady = true; }
+
+  function unleash() {
+    if (clicked) return;
+    clicked = true;
+
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+
+    // Both "Yes" and "No" land here — the question is a gate in
+    // appearance only.
+    createPlayer();
+
+    // If the API somehow never loads, don't leave them staring at
+    // "Compiling..." forever.
+    setTimeout(function () { if (!ytPlayer) reveal(); }, 4000);
+  }
+
+  function createPlayer() {
+    if (!ytReady) { setTimeout(createPlayer, 100); return; }
+    ytPlayer = new YT.Player('player', {
+      videoId: 'Aq5WXmQQooo',
+      width: '100%',
+      height: '100%',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        rel: 0,
+        playsinline: 1,
+        modestbranding: 1
+      },
+      events: {
+        'onReady': function (e) {
+          reveal();
+          try { e.target.unMute(); } catch (err) {}
+          e.target.playVideo();
+        }
+      }
+    });
+  }
+
+  function reveal() {
+    document.getElementById('loading').style.display = 'none';
+    var wrap = document.getElementById('videoWrap');
+    wrap.style.display = 'block';
+
+    var fs = wrap.requestFullscreen || wrap.webkitRequestFullscreen || wrap.msRequestFullscreen;
+    if (fs) fs.call(wrap).catch(function () {});
+
+    // Safety net: if the browser still blocked unmuted autoplay, this
+    // invisible full-screen layer unmutes on the very next tap — no
+    // visible "play" button, no warning it's coming.
+    document.getElementById('tapOverlay').style.display = 'block';
+  }
+
+  document.getElementById('tapOverlay').addEventListener('click', function () {
+    if (ytPlayer) { ytPlayer.unMute(); ytPlayer.playVideo(); }
+    this.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>

@@ -52,20 +52,5 @@
   </div>
 </div>
 
-<!--
-  Nothing in this file points at the actual destination. Both answers
-  link to the same same-domain path ("/article") — the "gate" is an
-  illusion of choice, not a real branch. A separate Cloudflare Page
-  Rule (Forwarding URL, 301) redirects "/article" server-side to
-  YouTube. That redirect happens at Cloudflare's edge, not in this
-  HTML/JS, so hovering either button or viewing source gives no hint
-  of what's next.
-
-  Cloudflare setup for the second hop:
-    Page Rule URL:     choke-ka-totka.mtalhasajid.dev/article*
-    Setting:           Forwarding URL (301 - Permanent Redirect)
-    Destination URL:   https://www.youtube.com/watch?v=dQw4w9WgXcQ
--->
-
 </body>
 </html>

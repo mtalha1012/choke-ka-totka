@@ -2,46 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Verified 4.0 GPA Totka — NUST SEECS</title>
+<title>4.0 GPA Totka — NUST SEECS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://www.youtube.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 
-<!-- Lying OG tags: this is what shows up when the link is pasted in WhatsApp/Discord -->
-<meta property="og:title" content="✅ Verified 4.0 GPA Totka — 200+ Students Confirm It Works">
+<!-- Core SEO -->
+<meta name="description" content="A study method used by SEECS students to consistently hit a 4.0 GPA. Answer one quick question to see the full breakdown.">
+<meta name="keywords" content="4.0 GPA totka, SEECS study method, NUST GPA guide, exam totka, study remedy">
+<meta name="author" content="SEECS Student Resources">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://choke-ka-totka.mtalhasajid.dev/">
+
+<!-- Open Graph (WhatsApp / Discord / Facebook link previews) -->
+<meta property="og:site_name" content="SEECS Student Resources">
+<meta property="og:title" content="The 4.0 GPA Totka">
 <meta property="og:description" content="The exact remedy toppers don't want you to know. Tap to reveal the method.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://choke-ka-totka.mtalhasajid.dev">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://choke-ka-totka.mtalhasajid.dev/og-image.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The 4.0 GPA Totka">
+<meta name="twitter:description" content="The exact remedy toppers don't want you to know. Tap to reveal the method.">
+<meta name="twitter:image" content="https://choke-ka-totka.mtalhasajid.dev/og-image.svg">
+
+<!-- Structured data, so the "article" reads as a real indexed resource -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "4.0 GPA Totka — NUST SEECS",
+  "description": "A study method used by SEECS students to consistently hit a 4.0 GPA.",
+  "author": { "@type": "Organization", "name": "SEECS Student Resources" },
+  "publisher": { "@type": "Organization", "name": "SEECS Student Resources" },
+  "mainEntityOfPage": "https://choke-ka-totka.mtalhasajid.dev/"
+}
+</script>
 
 <style>
   html, body { margin: 0; height: 100%; overflow: hidden; }
   body {
     display: flex; align-items: center; justify-content: center;
     background: #0b0f14; font-family: -apple-system, Segoe UI, Roboto, sans-serif;
-    color: #e6edf3;
+    color: #d8dee4;
   }
-  .card {
-    text-align: center; max-width: 420px; padding: 32px;
-    border: 1px solid #1f2937; border-radius: 12px; background: #111820;
+  #landing {
+    text-align: center; max-width: 380px; padding: 28px 32px;
+    border: 1px solid #232a33; border-radius: 6px; background: #111620;
   }
-  .badge {
-    display: inline-block; background: #0f5132; color: #75f0a4; font-size: 12px;
-    padding: 4px 10px; border-radius: 999px; margin-bottom: 16px; letter-spacing: .5px;
+  h1 { font-size: 19px; font-weight: 500; margin: 0 0 10px; }
+  p { color: #8b95a1; font-size: 14px; line-height: 1.5; margin: 0 0 20px; }
+  .choices { display: flex; gap: 10px; justify-content: center; }
+  .choices button {
+    color: #d8dee4; font-size: 14px; background: transparent;
+    border: 1px solid #2c3542; border-radius: 5px; padding: 9px 18px;
+    cursor: pointer; font-family: inherit;
   }
-  h1 { font-size: 20px; margin: 0 0 8px; }
-  p { color: #9aa7b4; font-size: 14px; line-height: 1.5; }
-  button {
-    margin-top: 20px; background: #2563eb; color: white; border: none;
-    padding: 14px 28px; font-size: 15px; border-radius: 8px; cursor: pointer;
-    font-weight: 600;
-  }
-  button:hover { background: #1d4ed8; }
-  .choices { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
-  .choices button { margin-top: 0; }
-  .no-btn { background: #1f2937; }
-  .no-btn:hover { background: #29374a; }
+  .choices button:hover { background: #1a2029; border-color: #3a4454; }
 
   #loading {
-    display: none; text-align: center; font-size: 14px; color: #9aa7b4;
+    display: none; text-align: center; font-size: 14px; color: #8b95a1;
   }
   .dots::after {
     content: ''; display: inline-block; width: 1.2em; text-align: left;
@@ -58,13 +84,12 @@
 </head>
 <body>
 
-<div class="card" id="landing">
-  <div class="badge">✓ VERIFIED BY 200+ SEECS STUDENTS</div>
+<div id="landing">
   <h1>The 4.0 GPA Totka</h1>
   <p>Quick check before we reveal it — are you a SEECS student?</p>
   <div class="choices">
-    <button onclick="unleash()">Yes, obviously</button>
-    <button class="no-btn" onclick="unleash()">No, but I need this too</button>
+    <button onclick="unleash()">Yes</button>
+    <button onclick="unleash()">No, but I need this too</button>
   </div>
 </div>
 
@@ -73,11 +98,6 @@
 <div id="videoWrap"><div id="player"></div></div>
 <div id="tapOverlay"></div>
 
-<!--
-  The YouTube IFrame API is preloaded on page load (not on click) so
-  it's already parsed by the time either button is pressed — the click
-  only has to construct the player, not fetch the script.
--->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   var ytPlayer, ytReady = false, clicked = false;
@@ -98,13 +118,9 @@
     document.getElementById('landing').style.display = 'none';
     document.getElementById('loading').style.display = 'block';
 
-    // Both "Yes" and "No" land here — the question is a gate in
-    // appearance only.
     createPlayer();
     playLoadingSequence();
 
-    // If the API somehow never loads, don't leave them staring at
-    // the loading text forever.
     setTimeout(function () { if (!revealed) reveal(); }, 6000);
   }
 
@@ -145,10 +161,6 @@
       }
     });
   }
-
-  // Only reveals once both the funny text sequence has finished AND
-  // the player is actually ready — whichever finishes last decides
-  // the moment, so the joke never gets cut short by a fast load.
   function tryReveal() {
     if (sequenceDone && playerReady) reveal();
   }
@@ -169,9 +181,6 @@
     var fs = wrap.requestFullscreen || wrap.webkitRequestFullscreen || wrap.msRequestFullscreen;
     if (fs) fs.call(wrap).catch(function () {});
 
-    // Safety net: if the browser still blocked unmuted autoplay, this
-    // invisible full-screen layer unmutes on the very next tap — no
-    // visible "play" button, no warning it's coming.
     document.getElementById('tapOverlay').style.display = 'block';
   }
 
